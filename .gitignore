@@ -1,0 +1,18 @@
+# 密钥：绝对不会提交
+.env
+
+# 运行产物：每轮会生成几个 MB 的日志和代码快照
+runs/
+_tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 编辑器
+.vscode/
+.idea/
+.DS_Store
