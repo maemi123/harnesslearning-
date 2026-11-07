@@ -1,0 +1,6 @@
+# 本项目只用 Python 标准库，没有第三方依赖。
+# Python >= 3.10（用到了 X | Y 类型注解和 match 之外的现代语法）
+#
+# 需要的东西只有一个：一个 OpenAI 兼容的 API 端点 + key
+# 默认指向硅基流动 https://cloud.siliconflow.cn
+# 换别家只要改 harness_lab/config.py 里的 API_BASE
