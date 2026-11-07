@@ -16,9 +16,6 @@ CASES = [
     ("base_conversion", 888, "ref_base.py", "进制转换（基线应接近 0）"),
 ]
 
-# 手写对照脚本放在仓库根的 controls/ 下（只用来证明「题可解、判分没错」）
-CONTROLS_DIR = config.ROOT.parent / "controls"
-
 VERSIONS = [
     ("第 0 层 seed", config.SEED_PATH),
     ("跑完 5 轮", config.HARNESS_PATH),
@@ -37,7 +34,7 @@ def main() -> None:
             r = bench.run_benchmark(path, problems, "")
             print(f"  {name:12s} {r.score:.3f}   ({time.time() - t:.0f}s, {r.usage['total_tokens']} tok)")
 
-        ref = CONTROLS_DIR / ref_name
+        ref = config.ROOT / "_tmp" / ref_name
         if ref.exists():
             r = bench.run_benchmark(ref, problems, "")
             print(f"  {'手写解析器':12s} {r.score:.3f}   （证明题可解、判分没错）")

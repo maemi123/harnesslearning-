@@ -41,7 +41,7 @@ SOLVER_MODEL = os.getenv("HL_SOLVER_MODEL", "THUDM/GLM-4-9B-0414")
 PROPOSER_MODEL = os.getenv("HL_PROPOSER_MODEL", "Qwen/Qwen3-8B")
 
 SOLVER_TEMPERATURE = 0.6
-SOLVER_MAX_TOKENS = 2048
+SOLVER_MAX_TOKENS = int(os.getenv("HL_SOLVER_MAX_TOKENS", "2048"))
 PROPOSER_TEMPERATURE = 1.0
 PROPOSER_MAX_TOKENS = 8192   # 4096 不够，实测会被截断成语法错误的半截代码
 
@@ -53,9 +53,16 @@ PROPOSER_THINKING = False
 # ---------- 题目 ----------
 # 每族：前 DEV_SIZE 条给 proposer 看（也用来打分选 harness），
 #       后 EVAL_SIZE 条全程锁死，只在最后算成绩。
-FAMILIES = ["basic_arithmetic", "simple_equations", "date_math"]
-DEV_SIZE = 20
-EVAL_SIZE = 15
+# 用环境变量 HL_FAMILIES 覆盖，方便一次跑不同题组。
+FAMILIES = [
+    s.strip()
+    for s in os.getenv(
+        "HL_FAMILIES", "basic_arithmetic,simple_equations,date_math"
+    ).split(",")
+    if s.strip()
+]
+DEV_SIZE = int(os.getenv("HL_DEV_SIZE", "20"))
+EVAL_SIZE = int(os.getenv("HL_EVAL_SIZE", "15"))
 DATA_SEED = 42
 
 # ---------- 迭代 ----------
@@ -69,7 +76,7 @@ HARNESS_MAX_LINES = 200     # 超过就判废，跟论文一致
 RUN_TIMEOUT = 180           # 单题总超时（秒）
 PY_TIMEOUT = 15             # harness 内部调用 python() 的超时（秒）
 PY_MAX_OUTPUT = 4000        # 代码执行返回的字符上限
-WORKERS = 2                 # 并发跑题数；免费档 TPM/并发都有上限，开大反而更慢
+WORKERS = int(os.getenv("HL_WORKERS", "2"))   # 并发跑题数；限流严重就调小
 
 # ---------- 重试 ----------
 MAX_RETRIES = 4
