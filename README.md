@@ -153,7 +153,7 @@ harness_lab/
   heldout_family.py 不给报告，直接拿练好的 harness 考新题型
   newfamily_probe.py 按论文协议：给新题型出报告、改一次、再考
 controls/           手写解析器，只用来证明「题可解、判分没错」
-docs/               实验报告、组会报告
+docs/               实验报告
 ```
 
 ---
